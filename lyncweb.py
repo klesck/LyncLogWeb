@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from rtf import Rtf2Txt
-from sqlalchemy import create_engine, MetaData, Column, Integer, DATETIME, Text, NVARCHAR, BIGINT, INT, and_, or_, desc
+from sqlalchemy import create_engine, Column, Integer, DATETIME, Text, NVARCHAR, BIGINT, INT, and_, or_, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 import re
@@ -10,8 +10,6 @@ app.config.from_pyfile('config.py')
 
 
 engine = create_engine('mssql+pymssql://user:password@mssql:1433/LcsLog')
-metadata = MetaData()
-conn = engine.connect()
 Base = declarative_base()
 session = sessionmaker()
 session.configure(bind=engine)
