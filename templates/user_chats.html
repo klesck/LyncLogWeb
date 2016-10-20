@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+
+<body>
+{% for user in users %}
+    {% if user[0] == uid %}
+        <p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large"><a href="javascript:history.back()"><-</a> {{ user[1][:-15] }}</p>
+    {% endif %}
+{% endfor %}
+
+
+<table>
+    <thead>
+    <tr>
+        <th style="text-align: center; width: 120px">User</th>
+    <tr>
+    </thead>
+    <tbody>
+
+    {% for message in messages %}
+    <tr>
+            {% for user in users %}
+                {% if message[0] == user[0] %}
+                    <td style="text-align: center"><a href="{{ url_for('users_conversation', uid=uid, uid2=message[0]) }}">
+                    {{ user[1] }}
+                    </td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

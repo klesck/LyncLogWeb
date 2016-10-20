@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+
+<body>
+<p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large"><a href="{{ url_for('index') }}">^</a> <a href="javascript:history.back()"><-</a> CHAT: {{ users[0][0][:-15] }} - {{ users[1][0][:-15] }}</p>
+<table>
+    <thead>
+    <tr>
+        <th style="text-align: center; width: 100px">Date
+        <th style="text-align: center; width: 120px">User
+        <th style="text-align: center">Message
+    </thead>
+    <tbody>
+    {% for message in messages %}
+        <tr>
+        <td style="text-align: center">{{ message[0] }}
+        <td style="text-align: center">
+            {% if message[1] == users[0][1] %}
+                {{ users[0][0][:-15] }}
+            {% elif message[1] == users[1][1] %}
+                {{ users[1][0][:-15] }}
+            {% endif %}
+        <td>{{ message[2] }}
+    {% endfor %}
+
+</table>
+</body>
+</html>
