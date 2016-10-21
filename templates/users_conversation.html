@@ -23,9 +23,9 @@
         <td style="text-align: center">{{ message[0] }}
         <td style="text-align: center">
             {% if message[1] == users[0][1] %}
-                {{ users[0][0][:-15] }}
+                {{ users[0][0] }}
             {% elif message[1] == users[1][1] %}
-                {{ users[1][0][:-15] }}
+                {{ users[1][0] }}
             {% endif %}
         <td>{{ message[2] }}
     {% endfor %}
