@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Conversation</title>
+    <title>Title</title>
     <link href="/static/style.css" rel="stylesheet">
 </head>
 
 <body>
-<p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large">
-    <a href="{{ url_for('index') }}">^</a> <a href="javascript:history.back()"><-</a> CHAT: {{ users[0][0][:-15] }}
-    - {{ users[1][0][:-15] }}</p>
+<p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large"><a href="{{ url_for('index') }}">^</a> <a href="javascript:history.back()"><-</a> CHAT: {{ users[0][0] }} - {{ users[1][0] }}</p>
+<p style="text-align: center"><a href="{{ url_for('users_conversation_choise_date', uid=uid, uid2=uid2) }}">выбор даты</a></p>
 <table>
     <thead>
     <tr>

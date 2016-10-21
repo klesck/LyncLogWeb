@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chats</title>
+    <title>Title</title>
     <link href="/static/style.css" rel="stylesheet">
 </head>
 
 <body>
 {% for user in users %}
     {% if user[0] == uid %}
-        <p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large">
-            <a href="javascript:history.back()"><-</a> {{ user[1] }}</p>
+        <p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large"><a href="javascript:history.back()"><-</a> {{ user[1] }}</p>
     {% endif %}
 {% endfor %}
 
@@ -24,12 +23,11 @@
     <tbody>
 
     {% for message in messages %}
-        <tr>
+    <tr>
             {% for user in users %}
                 {% if message[0] == user[0] %}
-                    <td style="text-align: center"><a
-                            href="{{ url_for('users_conversation', uid=uid, uid2=message[0]) }}">
-                        {{ user[1] }}</a>
+                    <td style="text-align: center"><a href="{{ url_for('users_conversation', uid=uid, uid2=message[0]) }}">
+                    {{ user[1] }}
                     </td>
                 {% endif %}
             {% endfor %}
