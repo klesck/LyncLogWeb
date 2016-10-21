@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from rtf import Rtf2Txt
-from sqlalchemy import create_engine, Column, Integer, DATETIME, Text, NVARCHAR, BIGINT, INT, and_, or_, desc
+from sqlalchemy import create_engine, Column, Integer, DATETIME, Text, NVARCHAR, BIGINT, INT, and_, or_, desc, func
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 import re
@@ -85,19 +85,58 @@ def users_conversation(uid, uid2):
     for i in messages:
         if i[1] == 2:
             work_list = []
-            work_list.append(i[3].strftime('%d-%b-%y %H:%M'))
+            work_list.append(i[3].strftime('%d-%m-%y %H:%M'))
             work_list.append(i[2])
             work_list.append(rtf_to_txt(i[0]))
             message.append(work_list)
         if i[1] == 1:
             work_list = []
-            work_list.append(i[3].strftime('%d-%b-%y %H:%M'))
+            work_list.append(i[3].strftime('%d-%m-%y %H:%M'))
             work_list.append(i[2])
             text = remove_tags(i[0])
             work_list.append(' '.join(text))
             message.append(work_list)
 
-    return render_template('users_conversation.html', messages=message, users=users)
+    return render_template('users_conversation.html', messages=message, users=users, uid=uid, uid2=uid2)
+
+
+@app.route('/<int:uid>/<int:uid2>/<dt>')
+def users_conversation_date(uid, uid2, dt):
+    users = s.query(Users.UserUri, Users.UserId).filter(or_(Users.UserId == uid, Users.UserId == uid2)).all()
+    messages = s.query(Messages.Body, Messages.ContentTypeId, Messages.FromId, Messages.MessageIdTime).filter(
+        or_(and_(Messages.FromId == uid, Messages.ToId == uid2),
+            (and_(Messages.FromId == uid2, Messages.ToId == uid))),
+        func.convert(func.VARCHAR(25), Messages.MessageIdTime, 126).like(dt+'%')).all()
+    message = []
+    for i in messages:
+        if i[1] == 2:
+            work_list = []
+            work_list.append(i[3].strftime('%d-%m-%y %H:%M'))
+            work_list.append(i[2])
+            work_list.append(rtf_to_txt(i[0]))
+            message.append(work_list)
+        if i[1] == 1:
+            work_list = []
+            work_list.append(i[3].strftime('%d-%m-%y %H:%M'))
+            work_list.append(i[2])
+            text = remove_tags(i[0])
+            work_list.append(' '.join(text))
+            message.append(work_list)
+    return render_template('users_conversation.html', messages=message, users=users, uid=uid, uid2=uid2)
+
+
+@app.route('/<int:uid>/<int:uid2>/date')
+def users_conversation_choise_date(uid, uid2):
+    users = s.query(Users.UserUri, Users.UserId).filter(or_(Users.UserId == uid, Users.UserId == uid2)).all()
+    dat = s.query(Messages.MessageIdTime).filter(or_(and_(Messages.FromId == uid, Messages.ToId == uid2),
+                                                     (and_(Messages.FromId == uid2, Messages.ToId == uid)))).distinct()
+    dates = []
+    for i in dat:
+        d = i[0].strftime('%Y-%m-%d')
+        dates.append(d)
+    date_unique = reduce(lambda l, x: l.append(x) or l if x not in l else l, dates, [])
+
+    return render_template('users_conversation_dates.html', users=users, dateunique=date_unique, uid=uid, uid2=uid2)
 
 
 if __name__ == '__main__':
