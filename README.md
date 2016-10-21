@@ -8,10 +8,9 @@
 Версия 0.0.1
 
 ## Версия python и библиотеки
-python 2.7
-
-pyrtflib - http://sourceforge.net/projects/pyrtflib/
-
-flask
-
-sqlalchemy
+  python 2.7
+  pyrtflib - http://sourceforge.net/projects/pyrtflib/
+  flask
+  sqlalchemy
+  
+  Для запуска в Windows в качестве сервера pypiwin32 
