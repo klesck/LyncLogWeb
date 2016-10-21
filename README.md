@@ -16,4 +16,4 @@
   
   sqlalchemy
   
-  Для запуска в Windows в качестве сервера pypiwin32 
+  Для запуска в Windows в качестве сервеиса pypiwin32 
