@@ -7,9 +7,9 @@ from lyncweb import app
 
 
 class AppServerSvc (win32serviceutil.ServiceFramework):
-    _svc_name_ = "TestService"
-    _svc_display_name_ = "Test Service"
-    _svc_description_ = "Tests Python service framework by receiving and echoing messages over a named pipe"
+    _svc_name_ = "LyncLogWeb"
+    _svc_display_name_ = "LyncLogWeb Service"
+    _svc_description_ = "LyncLogWeb Python service for view log from db"
 
     def __init__(self,args):
         win32serviceutil.ServiceFramework.__init__(self,args)
