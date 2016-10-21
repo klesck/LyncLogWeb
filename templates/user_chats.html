@@ -10,7 +10,7 @@
 {% for user in users %}
     {% if user[0] == uid %}
         <p style="text-align: center; font-weight: bold; font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif; font-size: xx-large">
-            <a href="javascript:history.back()"><-</a> {{ user[1][:-15] }}</p>
+            <a href="javascript:history.back()"><-</a> {{ user[1] }}</p>
     {% endif %}
 {% endfor %}
 
