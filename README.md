@@ -9,6 +9,9 @@
 
 ## Версия python и библиотеки
 python 2.7
+
 pyrtflib - http://sourceforge.net/projects/pyrtflib/
+
 flask
+
 sqlalchemy
